@@ -1,0 +1,3 @@
+oauth2==1.5.211
+python-twitter==0.8.4
+tweepy==1.12
