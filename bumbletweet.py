@@ -163,5 +163,11 @@ def main(bumble_object):
 
 
 if __name__ == '__main__':
-    main(FestivalBumble())
-    #main(RemoteBumble())
+    import platform
+    if (platform.system() == "Linux") {
+            main(FestivalBumble()) 
+    } elif (platform.system() == "Darwin") { 
+            main(RemoteBumble())
+    } else {
+            print "We only support Darwin and Linux at this time, goodbye"
+    }
