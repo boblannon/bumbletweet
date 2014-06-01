@@ -8,4 +8,9 @@ consumer_secret="YOUR-KEY-SECRET-HERE"
 access_token="YOUR-TOKEN-HERE"
 access_token_secret="YOUR-TOKEN-SECRET-HERE"
 
+# server and port to talk too 
+server_listen_addr = "127.0.0.1"
+server_port = "8888"
 
+# the hashtag to watch for
+hash_tag = "#robotweet"
