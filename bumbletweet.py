@@ -10,7 +10,9 @@ import unicodedata
 import sys
 
 from local_settings import consumer_key, consumer_secret, \
-                            access_token, access_token_secret
+                            access_token, access_token_secret \
+                            server_port, server_listen_addr \
+                            hash_tag
 
 festival_cmd = 'echo "" | nc %s %s -q0'
 tweet_deque = collections.deque()
@@ -34,7 +36,7 @@ class Bumble(object):
     def __init__(self):
         self.downtime = 0
         self.tweet = None
-        self.reminder = "Make me speak. Tweet using hashtag bumble tweet"
+        self.reminder = "Make me speak. Tweet using hashtag "+hash_tag.replace('#','');
 
     def speak(self, remind=False):
         raise NotImplementedError
@@ -85,14 +87,14 @@ class Bumble(object):
         self.tweet = self.tweet.replace('"','')
         self.tweet = self.tweet.replace('\\','')
         self.tweet = self.tweet.replace('(','').replace(')','')
-        self.tweet = self.tweet.replace('#bumbletweet','')
+        self.tweet = self.tweet.replace(hash_tag,'')
 
 
 class FestivalBumble(Bumble):
     def __init__(self):
         super(FestivalBumble, self).__init__()
-        self.festival_host = "127.0.0.1"
-        self.festival_port = "1314"
+        self.festival_host = server_listen_addr
+        self.festival_port = server_port
         self.say_cmd = 'echo "(SayText \\"{txt}\\")" | nc {host} {port} -q0'
 
     def speak(self, remind=False):
@@ -115,7 +117,7 @@ class FestivalBumble(Bumble):
 
 
 class RemoteBumble(Bumble):
-    def __init__(self, host="127.0.0.1", port="9000"):
+    def __init__(self, host=server_listen_addr, port=server_port):
         super(RemoteBumble, self).__init__()
         self.remote_host = host
         self.remote_say_port = port
@@ -154,12 +156,18 @@ def main(bumble_object):
 
     get_tweets = threading.Thread(
                                     target=stream.filter,
-                                    kwargs={'track':['#bumbletweet']})
+                                    kwargs={'track':[hash_tag]})
     say_tweets = threading.Thread(target=bumble_object.watch_tweets)
     get_tweets.start()
     say_tweets.start()
 
 
 if __name__ == '__main__':
-    main(FestivalBumble())
-    #main(RemoteBumble())
+    import platform
+    if (platform.system() == "Linux") {
+            main(FestivalBumble()) 
+    } elif (platform.system() == "Darwin") { 
+            main(RemoteBumble())
+    } else {
+            print "We only support Darwin and Linux at this time, goodbye"
+    }
