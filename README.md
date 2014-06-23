@@ -1,7 +1,7 @@
 bumbletweet
 ===========
 
-![Bumble not included](https://flic.kr/p/dz2cqT "Bumble on the job")
+![Bumble not included](https://dl.dropboxusercontent.com/u/16950143/8249959143_c9847b79eb_z.jpg "Bumble on the job")
 
 watch twitter for a certain hashtag and send it to festival voice synthesis!
 
