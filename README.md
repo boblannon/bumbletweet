@@ -1,8 +1,9 @@
 bumbletweet
 ===========
 
-watch twitter for a certain hashtag and send it to festival voice synthesis!
+![Bumble not included](https://flic.kr/p/dz2cqT "Bumble on the job")
 
+watch twitter for a certain hashtag and send it to festival voice synthesis!
 
 Quick Start
 -----------
